@@ -1,3 +1,9 @@
 <resources>
-    <string name="app_name">GitHubClient</string>
+    <string name="app_name">GitHub client</string>
+    <string name="counter_title_1">Counter 1</string>
+    <string name="counter_value_1">0</string>
+    <string name="counter_title_2">Counter 2</string>
+    <string name="counter_value_2">0</string>
+    <string name="counter_title_3">Counter 3</string>
+    <string name="counter_value_3">0</string>
 </resources>
