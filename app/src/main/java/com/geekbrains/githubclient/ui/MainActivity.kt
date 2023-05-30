@@ -31,6 +31,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onRestoreInstanceState(savedInstanceState: Bundle) {
         super.onRestoreInstanceState(savedInstanceState)
+
         val savedCounters = savedInstanceState.getIntArray(countersKey)
         savedCounters?.toList()?.let {
             counters.clear()
