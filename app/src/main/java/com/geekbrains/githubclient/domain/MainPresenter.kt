@@ -5,8 +5,8 @@ import com.geekbrains.githubclient.data.Counters
 class MainPresenter(val view: MainView) {
     val counters = Counters()
 
-    fun onViewClick(id: Int, idToIndex: Map<Int, Int>) {
-        idToIndex.get(id)?.let {
+    fun onViewClick(id: Int, countersViewId: List<Int>) {
+        countersViewId.indexOf(id).let {
             view.setButtonText(it, counters.increase(it).toString())
         }
     }

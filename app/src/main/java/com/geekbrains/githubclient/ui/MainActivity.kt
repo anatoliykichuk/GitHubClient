@@ -16,11 +16,10 @@ class MainActivity : AppCompatActivity(), MainView {
     private val binding
         get() = _binding!!
 
-    private val counters = mutableListOf<Int>(0, 0, 0)
     private val presenter: MainPresenter = MainPresenter(this)
+    private val counters = mutableListOf<Int>(0, 0, 0)
 
-    private lateinit var idToIndex: Map<Int, Int>
-    private lateinit var indexToButton: Map<Int, Button>
+    private lateinit var countersViewId: List<Int>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,20 +27,14 @@ class MainActivity : AppCompatActivity(), MainView {
         _binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        idToIndex = mapOf<Int, Int>(
-            binding.counter1.id to 0,
-            binding.counter2.id to 1,
-            binding.counter3.id to 2
-        )
-
-        indexToButton = mapOf<Int, Button>(
-            0 to binding.counter1,
-            1 to binding.counter2,
-            2 to binding.counter3
+        countersViewId = listOf(
+            binding.counter1.id,
+            binding.counter2.id,
+            binding.counter3.id
         )
 
         val clickListener = View.OnClickListener {
-            presenter.onViewClick(it.id, idToIndex)
+            presenter.onViewClick(it.id, countersViewId)
         }
 
         binding.counter1.setOnClickListener(clickListener)
@@ -70,8 +63,10 @@ class MainActivity : AppCompatActivity(), MainView {
     }
 
     override fun setButtonText(counterIndex: Int, text: String) {
-        indexToButton.get(counterIndex)?.let {
-            it.text = text
+        countersViewId[counterIndex].let { viewId ->
+            binding.root.findViewById<Button>(viewId)?.let { view ->
+                view.text = text
+            }
         }
     }
 }
