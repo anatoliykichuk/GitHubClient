@@ -1,13 +1,21 @@
 package com.geekbrains.githubclient.domain
 
 import com.geekbrains.githubclient.data.Counters
+import moxy.MvpPresenter
 
-class MainPresenter(val view: MainView) {
-    val counters = Counters()
+class MainPresenter(val counters: Counters) : MvpPresenter<MainView>() {
+    fun counterOneClick() {
+        val counterValue = counters.increase(0)
+        viewState.setButtonOneText(counterValue.toString())
+    }
 
-    fun onViewClick(id: Int, countersViewId: List<Int>) {
-        countersViewId.indexOf(id).let {
-            view.setButtonText(it, counters.increase(it).toString())
-        }
+    fun counterTwoClick() {
+        val counterValue = counters.increase(1)
+        viewState.setButtonTwoText(counterValue.toString())
+    }
+
+    fun counterTreeClick() {
+        val counterValue = counters.increase(2)
+        viewState.setButtonTreeText(counterValue.toString())
     }
 }
