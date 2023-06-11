@@ -1,59 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.MainActivity">
 
-    <androidx.appcompat.widget.LinearLayoutCompat
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/users"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:gravity="center_horizontal"
-        android:orientation="vertical"
-        android:padding="@dimen/root_padding">
+        android:clipToPadding="false"
+        android:paddingTop="@dimen/users_list_padding"
+        android:paddingBottom="@dimen/users_list_padding" />
 
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/counter_title_1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/counter_title_1" />
-
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/counter_1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/counter_value_1"
-            app:layout_constraintTop_toBottomOf="@id/counter_title_1" />
-
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/counter_title_2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/counter_title_2"
-            app:layout_constraintTop_toBottomOf="@id/counter_1" />
-
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/counter_2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/counter_value_2"
-            app:layout_constraintTop_toBottomOf="@id/counter_title_2" />
-
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/counter_title_3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/counter_title_3"
-            app:layout_constraintTop_toBottomOf="@id/counter_2" />
-
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/counter_3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/counter_value_3"
-            app:layout_constraintTop_toBottomOf="@id/counter_title_3" />
-
-    </androidx.appcompat.widget.LinearLayoutCompat>
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+</RelativeLayout>

@@ -1,30 +1,29 @@
 package com.geekbrains.githubclient.ui
 
 import android.os.Bundle
-import com.geekbrains.githubclient.data.Counters
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.geekbrains.githubclient.data.GithubUserRepo
 import com.geekbrains.githubclient.databinding.ActivityMainBinding
 import com.geekbrains.githubclient.domain.MainPresenter
 import com.geekbrains.githubclient.domain.MainView
+import com.geekbrains.githubclient.ui.adapter.UsersAdapter
 import moxy.MvpAppCompatActivity
 import moxy.ktx.moxyPresenter
 
 class MainActivity : MvpAppCompatActivity(), MainView {
 
+    private val presenter by moxyPresenter { MainPresenter(GithubUserRepo()) }
+    private var adapter: UsersAdapter? = null
+
     private var _binding: ActivityMainBinding? = null
     private val binding
         get() = _binding!!
-
-    private val presenter by moxyPresenter { MainPresenter(Counters()) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         _binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
-        binding.counter1.setOnClickListener { presenter.counterOneClick() }
-        binding.counter2.setOnClickListener { presenter.counterTwoClick() }
-        binding.counter3.setOnClickListener { presenter.counterTreeClick() }
     }
 
     override fun onDestroy() {
@@ -32,15 +31,14 @@ class MainActivity : MvpAppCompatActivity(), MainView {
         _binding = null
     }
 
-    override fun setButtonOneText(text: String) {
-        binding.counter1.text = text
+    override fun init() {
+        adapter = UsersAdapter(presenter.userListPresenter)
+
+        binding.users?.layoutManager = LinearLayoutManager(this)
+        binding.users?.adapter = adapter
     }
 
-    override fun setButtonTwoText(text: String) {
-        binding.counter2.text = text
-    }
-
-    override fun setButtonTreeText(text: String) {
-        binding.counter3.text = text
+    override fun updateList() {
+        adapter?.notifyDataSetChanged()
     }
 }

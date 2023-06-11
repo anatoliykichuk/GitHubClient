@@ -1,21 +1,41 @@
 package com.geekbrains.githubclient.domain
 
-import com.geekbrains.githubclient.data.Counters
+import com.geekbrains.githubclient.data.GithubUser
+import com.geekbrains.githubclient.data.GithubUserRepo
+import com.geekbrains.githubclient.ui.adapter.IUserItemView
+import com.geekbrains.githubclient.ui.adapter.IUserListPresenter
 import moxy.MvpPresenter
 
-class MainPresenter(val counters: Counters) : MvpPresenter<MainView>() {
-    fun counterOneClick() {
-        val counterValue = counters.increase(0)
-        viewState.setButtonOneText(counterValue.toString())
+class MainPresenter(val usersRepo: GithubUserRepo) : MvpPresenter<MainView>() {
+
+    class UserListPresenter : IUserListPresenter {
+        val users = mutableListOf<GithubUser>()
+        override var itemClickListener: ((IUserItemView) -> Unit)? = null
+
+        override fun bindView(view: IUserItemView) {
+            val user = users[view.itemPosition]
+            view.setLogin(user.login)
+        }
+
+        override fun getCount() = users.size
     }
 
-    fun counterTwoClick() {
-        val counterValue = counters.increase(1)
-        viewState.setButtonTwoText(counterValue.toString())
+    val userListPresenter = UserListPresenter()
+
+    override fun onFirstViewAttach() {
+        super.onFirstViewAttach()
+
+        viewState.init()
+        loadData()
+
+        userListPresenter.itemClickListener = { itemView ->
+            // TODO: переход на экран пользователя
+        }
     }
 
-    fun counterTreeClick() {
-        val counterValue = counters.increase(2)
-        viewState.setButtonTreeText(counterValue.toString())
+    fun loadData() {
+        val users = usersRepo.getUsers()
+        userListPresenter.users.addAll(users)
+        viewState.updateList()
     }
 }

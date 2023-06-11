@@ -5,9 +5,9 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.geekbrains.githubclient.databinding.UserItemBinding
 
-class UserAdapter(
+class UsersAdapter(
     val presenter: IUserListPresenter
-) : RecyclerView.Adapter<UserAdapter.ViewHolder>() {
+) : RecyclerView.Adapter<UsersAdapter.ViewHolder>() {
 
     inner class ViewHolder(
         val binding: UserItemBinding
