@@ -1,19 +1,22 @@
 package com.geekbrains.githubclient.ui
 
 import android.os.Bundle
-import androidx.recyclerview.widget.LinearLayoutManager
-import com.geekbrains.githubclient.data.GithubUserRepo
+import com.geekbrains.githubclient.R
 import com.geekbrains.githubclient.databinding.ActivityMainBinding
 import com.geekbrains.githubclient.domain.MainPresenter
 import com.geekbrains.githubclient.domain.MainView
-import com.geekbrains.githubclient.ui.adapter.UsersAdapter
+import com.geekbrains.githubclient.ui.pages.BackButtonListener
+import com.github.terrakok.cicerone.androidx.AppNavigator
 import moxy.MvpAppCompatActivity
 import moxy.ktx.moxyPresenter
 
 class MainActivity : MvpAppCompatActivity(), MainView {
 
-    private val presenter by moxyPresenter { MainPresenter(GithubUserRepo()) }
-    private var adapter: UsersAdapter? = null
+    val navigator = AppNavigator(this, R.id.container)
+
+    private val presenter by moxyPresenter {
+        MainPresenter(App.instance.router, AndroidScreens())
+    }
 
     private var _binding: ActivityMainBinding? = null
     private val binding
@@ -26,19 +29,27 @@ class MainActivity : MvpAppCompatActivity(), MainView {
         setContentView(binding.root)
     }
 
+    override fun onResumeFragments() {
+        super.onResumeFragments()
+        App.instance.navigatorHolder.setNavigator(navigator)
+    }
+
+    override fun onPause() {
+        super.onPause()
+        App.instance.navigatorHolder.removeNavigator()
+    }
+
     override fun onDestroy() {
         super.onDestroy()
         _binding = null
     }
 
-    override fun init() {
-        adapter = UsersAdapter(presenter.userListPresenter)
-
-        binding.users?.layoutManager = LinearLayoutManager(this)
-        binding.users?.adapter = adapter
-    }
-
-    override fun updateList() {
-        adapter?.notifyDataSetChanged()
+    override fun onBackPressed() {
+        supportFragmentManager.fragments.forEach {
+            if (it is BackButtonListener && it.backPressed()) {
+                return
+            }
+            presenter.backClicked()
+        }
     }
 }
