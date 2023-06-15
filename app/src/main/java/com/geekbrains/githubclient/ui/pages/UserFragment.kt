@@ -4,14 +4,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import com.geekbrains.githubclient.data.GithubUser
 import com.geekbrains.githubclient.databinding.FragmentUserBinding
-import com.geekbrains.githubclient.domain.UserPresenter
-import com.geekbrains.githubclient.domain.UserView
-import moxy.MvpAppCompatFragment
-import moxy.ktx.moxyPresenter
 
-class UserFragment() : MvpAppCompatFragment(), UserView {
+class UserFragment() : Fragment() {
 
     companion object {
         private const val CURRENT_USER = "current_data"
@@ -25,10 +22,6 @@ class UserFragment() : MvpAppCompatFragment(), UserView {
                 arguments = bundle
             }
         }
-    }
-
-    private val presenter: UserPresenter by moxyPresenter {
-        UserPresenter()
     }
 
     private var _binding: FragmentUserBinding? = null
