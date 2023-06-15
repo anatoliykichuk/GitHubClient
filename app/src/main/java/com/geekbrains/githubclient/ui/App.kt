@@ -13,8 +13,11 @@ class App : Application() {
         Cicerone.create()
     }
 
-    val navigatorHolder get() = cicerone.getNavigatorHolder()
-    val router get() = cicerone.router
+    val navigatorHolder
+        get() = cicerone.getNavigatorHolder()
+
+    val router
+        get() = cicerone.router
 
     override fun onCreate() {
         super.onCreate()

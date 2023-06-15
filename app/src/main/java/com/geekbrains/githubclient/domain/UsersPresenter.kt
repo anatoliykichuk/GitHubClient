@@ -2,13 +2,16 @@ package com.geekbrains.githubclient.domain
 
 import com.geekbrains.githubclient.data.GithubUser
 import com.geekbrains.githubclient.data.GithubUserRepo
+import com.geekbrains.githubclient.ui.IScreens
 import com.geekbrains.githubclient.ui.adapter.IUserItemView
 import com.geekbrains.githubclient.ui.adapter.IUserListPresenter
 import com.github.terrakok.cicerone.Router
 import moxy.MvpPresenter
 
 class UsersPresenter(
-    val usersRepo: GithubUserRepo, val router: Router
+    val usersRepo: GithubUserRepo,
+    val router: Router,
+    val screens: IScreens
 ) : MvpPresenter<UsersView>() {
 
     class UserListPresenter : IUserListPresenter {
@@ -32,7 +35,8 @@ class UsersPresenter(
         loadData()
 
         userListPresenter.itemClickListener = { itemView ->
-            // TODO: переход на экран пользователя
+            val user = userListPresenter.users[itemView.itemPosition]
+            router.navigateTo(screens.user(user))
         }
     }
 

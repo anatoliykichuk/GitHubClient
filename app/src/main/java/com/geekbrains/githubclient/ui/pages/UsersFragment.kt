@@ -9,6 +9,7 @@ import com.geekbrains.githubclient.data.GithubUserRepo
 import com.geekbrains.githubclient.databinding.FragmentUsersBinding
 import com.geekbrains.githubclient.domain.UsersPresenter
 import com.geekbrains.githubclient.domain.UsersView
+import com.geekbrains.githubclient.ui.AndroidScreens
 import com.geekbrains.githubclient.ui.App
 import com.geekbrains.githubclient.ui.adapter.UsersAdapter
 import moxy.MvpAppCompatFragment
@@ -21,7 +22,7 @@ class UsersFragment : MvpAppCompatFragment(), UsersView, BackButtonListener {
     }
 
     private val presenter: UsersPresenter by moxyPresenter {
-        UsersPresenter(GithubUserRepo(), App.instance.router)
+        UsersPresenter(GithubUserRepo(), App.instance.router, AndroidScreens())
     }
 
     private var adapter: UsersAdapter? = null
