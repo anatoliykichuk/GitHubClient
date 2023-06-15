@@ -1,13 +1,17 @@
 package com.geekbrains.githubclient.domain
 
-import com.geekbrains.githubclient.data.Counters
+import com.geekbrains.githubclient.ui.IScreens
+import com.github.terrakok.cicerone.Router
+import moxy.MvpPresenter
 
-class MainPresenter(val view: MainView) {
-    val counters = Counters()
+class MainPresenter(val router: Router, val screens: IScreens) : MvpPresenter<MainView>() {
 
-    fun onViewClick(id: Int, idToIndex: Map<Int, Int>) {
-        idToIndex.get(id)?.let {
-            view.setButtonText(it, counters.increase(it).toString())
-        }
+    override fun onFirstViewAttach() {
+        super.onFirstViewAttach()
+        router.replaceScreen(screens.users())
+    }
+
+    fun backClicked() {
+        router.exit()
     }
 }
