@@ -3,7 +3,6 @@ package com.geekbrains.githubclient.rx
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.core.Observer
 import io.reactivex.rxjava3.disposables.Disposable
-import java.lang.RuntimeException
 import java.util.concurrent.TimeUnit
 import kotlin.random.Random
 
