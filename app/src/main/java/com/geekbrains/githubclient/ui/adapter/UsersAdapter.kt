@@ -4,6 +4,8 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.geekbrains.githubclient.databinding.UserItemBinding
+import com.geekbrains.githubclient.domain.IUserItemView
+import com.geekbrains.githubclient.domain.IUserListPresenter
 
 class UsersAdapter(
     val presenter: IUserListPresenter
