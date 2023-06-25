@@ -15,7 +15,7 @@ class GithubUserRepo(
         return repositories
     }
 
-    fun getUsersAsync(): Observable<List<GithubUser>> {
-        return Observable.just(repositories)
+    fun getUsersAsync(): Observable<GithubUser> {
+        return Observable.fromIterable(repositories)
     }
 }

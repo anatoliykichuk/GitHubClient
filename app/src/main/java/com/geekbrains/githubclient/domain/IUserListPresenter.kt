@@ -1,3 +1,3 @@
-package com.geekbrains.githubclient.ui.adapter
+package com.geekbrains.githubclient.domain
 
 interface IUserListPresenter : IListPresenter<IUserItemView>

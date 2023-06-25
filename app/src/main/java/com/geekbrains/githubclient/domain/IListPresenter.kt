@@ -1,4 +1,4 @@
-package com.geekbrains.githubclient.ui.adapter
+package com.geekbrains.githubclient.domain
 
 interface IListPresenter<V : IItemView> {
     var itemClickListener: ((V) -> Unit)?
