@@ -13,7 +13,7 @@ class UserFragment() : Fragment() {
     companion object {
         private const val CURRENT_USER = "current_data"
 
-        fun newInstance(user: GithubUser?) : UserFragment {
+        fun newInstance(user: GithubUser?): UserFragment {
             val bundle = Bundle().apply {
                 putParcelable(CURRENT_USER, user)
             }
