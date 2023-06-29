@@ -3,6 +3,7 @@ package com.geekbrains.githubclient.data
 import io.reactivex.rxjava3.core.Single
 import retrofit2.http.GET
 import retrofit2.http.Path
+import retrofit2.http.Url
 
 private const val END_POINT = "/users"
 
@@ -12,4 +13,7 @@ interface IDataSource {
 
     @GET("users/{login}")
     fun loadUser(@Path("login") login: String): Single<User>
+
+    @GET
+    fun getRepositories(@Url url: String): Single<List<GithubRepository>>
 }

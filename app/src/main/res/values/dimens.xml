@@ -6,4 +6,6 @@
     <dimen name="users_list_padding">16dp</dimen>
     <dimen name="user_avatar_measure">50dp</dimen>
     <dimen name="user_avatar_margin">16dp</dimen>
+    <dimen name="repositories_list_padding">16dp</dimen>
+    <dimen name="repository_name_margin">16dp</dimen>
 </resources>

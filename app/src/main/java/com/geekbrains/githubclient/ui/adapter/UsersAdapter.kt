@@ -5,9 +5,9 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import com.geekbrains.githubclient.databinding.UserItemBinding
-import com.geekbrains.githubclient.domain.IImageLoader
 import com.geekbrains.githubclient.domain.IUserItemView
-import com.geekbrains.githubclient.domain.IUserListPresenter
+import com.geekbrains.githubclient.domain.common.IImageLoader
+import com.geekbrains.githubclient.domain.users.IUserListPresenter
 
 class UsersAdapter(
     val presenter: IUserListPresenter,

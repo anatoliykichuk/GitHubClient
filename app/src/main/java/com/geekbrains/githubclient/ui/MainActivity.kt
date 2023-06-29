@@ -3,8 +3,8 @@ package com.geekbrains.githubclient.ui
 import android.os.Bundle
 import com.geekbrains.githubclient.R
 import com.geekbrains.githubclient.databinding.ActivityMainBinding
-import com.geekbrains.githubclient.domain.MainPresenter
-import com.geekbrains.githubclient.domain.MainView
+import com.geekbrains.githubclient.domain.main.MainPresenter
+import com.geekbrains.githubclient.domain.main.MainView
 import com.geekbrains.githubclient.ui.pages.BackButtonListener
 import com.github.terrakok.cicerone.androidx.AppNavigator
 import moxy.MvpAppCompatActivity

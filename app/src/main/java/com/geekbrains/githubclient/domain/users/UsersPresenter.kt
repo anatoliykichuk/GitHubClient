@@ -1,7 +1,8 @@
-package com.geekbrains.githubclient.domain
+package com.geekbrains.githubclient.domain.users
 
 import com.geekbrains.githubclient.data.GithubUser
 import com.geekbrains.githubclient.data.IGithubUsersRepo
+import com.geekbrains.githubclient.domain.IUserItemView
 import com.geekbrains.githubclient.ui.IScreens
 import com.github.terrakok.cicerone.Router
 import io.reactivex.rxjava3.core.Scheduler
@@ -38,6 +39,7 @@ class UsersPresenter(
 
         userListPresenter.itemClickListener = { itemView ->
             val user = userListPresenter.users[itemView.itemPosition]
+
             router.navigateTo(screens.user(user))
         }
     }

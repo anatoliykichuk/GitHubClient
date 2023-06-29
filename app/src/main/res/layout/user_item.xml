@@ -16,6 +16,7 @@
         android:id="@+id/user_login"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/user_login_margin" />
+        android:layout_marginStart="@dimen/user_login_margin"
+        android:layout_marginEnd="@dimen/user_login_margin" />
 
 </androidx.appcompat.widget.LinearLayoutCompat>
