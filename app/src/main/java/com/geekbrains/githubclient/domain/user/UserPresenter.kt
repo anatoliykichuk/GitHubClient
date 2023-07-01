@@ -51,6 +51,7 @@ class UserPresenter(
                     clear()
                     addAll(githubRepositories)
                 }
+                viewState.updateList()
             }, {
                 println("Error: ${it.message}")
             })

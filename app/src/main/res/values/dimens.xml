@@ -8,4 +8,6 @@
     <dimen name="user_avatar_margin">16dp</dimen>
     <dimen name="repositories_list_padding">16dp</dimen>
     <dimen name="repository_name_margin">16dp</dimen>
+    <dimen name="repository_data_padding">16dp</dimen>
+    <dimen name="repository_title_view_width">90dp</dimen>
 </resources>

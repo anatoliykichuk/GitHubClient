@@ -33,11 +33,12 @@ class UserFragment() : MvpAppCompatFragment(), UserView {
     }
 
     private val presenter: UserPresenter by moxyPresenter {
-        val urlExample = "https://api.github.com/users/mojombo/repos" // TODO
+        val user = arguments?.getParcelable<GithubUser>(CURRENT_USER)
+        val reposUrl = user?.reposUrl ?: ""
 
         UserPresenter(
             AndroidSchedulers.mainThread(),
-            RetrofitGithubRepositoriesRepo(ApiHolder.api, urlExample),
+            RetrofitGithubRepositoriesRepo(ApiHolder.api, reposUrl),
             App.instance.router,
             AndroidScreens()
         )

@@ -35,6 +35,16 @@ class RepositoryFragment : Fragment() {
         return binding.root
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        arguments?.getParcelable<GithubRepository>(CURRENT_REPOSITORY)?.let {
+            binding.repositoryName.setText(it.name)
+            binding.repositoryDescription.setText(it.description)
+            binding.repositoryForksCount.setText(it.forksCount.toString())
+        }
+    }
+
     override fun onDestroy() {
         super.onDestroy()
         _binding = null
