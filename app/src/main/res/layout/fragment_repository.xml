@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.pages.RepositoryFragment">
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingTop="@dimen/repository_data_padding">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/repository_name_title"
+                android:layout_width="@dimen/repository_title_view_width"
+                android:layout_height="wrap_content"
+                android:text="@string/repository_name_title" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/repository_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingTop="@dimen/repository_data_padding">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/repository_description_title"
+                android:layout_width="@dimen/repository_title_view_width"
+                android:layout_height="wrap_content"
+                android:text="@string/repository_description_title" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/repository_description"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingTop="@dimen/repository_data_padding">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/repository_forks_count_title"
+                android:layout_width="@dimen/repository_title_view_width"
+                android:layout_height="wrap_content"
+                android:text="@string/repository_forks_count_title" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/repository_forks_count"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+</FrameLayout>

@@ -1,15 +1,16 @@
-package com.geekbrains.githubclient.domain
+package com.geekbrains.githubclient.domain.users
 
 import com.geekbrains.githubclient.data.GithubUser
-import com.geekbrains.githubclient.data.GithubUserRepo
+import com.geekbrains.githubclient.data.IGithubUsersRepo
+import com.geekbrains.githubclient.domain.IUserItemView
 import com.geekbrains.githubclient.ui.IScreens
 import com.github.terrakok.cicerone.Router
-import io.reactivex.rxjava3.core.Observer
-import io.reactivex.rxjava3.disposables.Disposable
+import io.reactivex.rxjava3.core.Scheduler
 import moxy.MvpPresenter
 
 class UsersPresenter(
-    val usersRepo: GithubUserRepo,
+    val uiScheduler: Scheduler,
+    val usersRepo: IGithubUsersRepo,
     val router: Router,
     val screens: IScreens
 ) : MvpPresenter<UsersView>() {
@@ -20,7 +21,9 @@ class UsersPresenter(
 
         override fun bindView(view: IUserItemView) {
             val user = users[view.itemPosition]
-            view.setLogin(user.login)
+
+            user.login?.let { view.setLogin(it) }
+            user.avatarUrl?.let { view.loadAvatar(it) }
         }
 
         override fun getCount() = users.size
@@ -36,28 +39,23 @@ class UsersPresenter(
 
         userListPresenter.itemClickListener = { itemView ->
             val user = userListPresenter.users[itemView.itemPosition]
+
             router.navigateTo(screens.user(user))
         }
     }
 
     fun loadData() {
-        val usersObserver = object : Observer<GithubUser> {
-            var disposable: Disposable? = null
-
-            override fun onSubscribe(d: Disposable) {
-                disposable = d
-            }
-
-            override fun onNext(t: GithubUser) {
-                userListPresenter.users.add(t)
-            }
-
-            override fun onError(e: Throwable) {}
-
-            override fun onComplete() {}
-        }
-
-        usersRepo.getUsersAsync().subscribe(usersObserver)
+        usersRepo.getUsers()
+            .observeOn(uiScheduler)
+            .subscribe({ githubUsers ->
+                userListPresenter.users.apply {
+                    clear()
+                    addAll(githubUsers)
+                }
+                viewState.updateList()
+            }, {
+                println("Error: ${it.message}")
+            })
     }
 
     fun backPressed(): Boolean {

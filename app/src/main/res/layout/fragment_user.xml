@@ -8,18 +8,38 @@
     <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="vertical">
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/user_login_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/user_login_title" />
+
+            <androidx.appcompat.widget.AppCompatEditText
+                android:id="@+id/user_login"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
 
         <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/user_login_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/user_login_title"/>
-
-        <androidx.appcompat.widget.AppCompatEditText
-            android:id="@+id/user_login"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:paddingTop="@dimen/repositories_list_padding"
+            android:text="@string/repositories_list_title" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/repositories"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="@dimen/repositories_list_padding"
+            android:paddingBottom="@dimen/repositories_list_padding" />
 
     </androidx.appcompat.widget.LinearLayoutCompat>
 

@@ -1,4 +1,4 @@
-package com.geekbrains.githubclient.domain
+package com.geekbrains.githubclient.domain.main
 
 import com.geekbrains.githubclient.ui.IScreens
 import com.github.terrakok.cicerone.Router
