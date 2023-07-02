@@ -1,4 +1,4 @@
-package com.geekbrains.githubclient.data
+package com.geekbrains.githubclient.data.net
 
 import com.google.gson.FieldNamingPolicy
 import com.google.gson.GsonBuilder

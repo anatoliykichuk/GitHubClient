@@ -1,5 +1,8 @@
-package com.geekbrains.githubclient.data
+package com.geekbrains.githubclient.data.net
 
+import com.geekbrains.githubclient.data.GithubRepository
+import com.geekbrains.githubclient.data.GithubUser
+import com.geekbrains.githubclient.data.User
 import io.reactivex.rxjava3.core.Single
 import retrofit2.http.GET
 import retrofit2.http.Path
