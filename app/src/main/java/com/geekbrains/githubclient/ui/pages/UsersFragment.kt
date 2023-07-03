@@ -5,13 +5,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.geekbrains.githubclient.data.ApiHolder
-import com.geekbrains.githubclient.data.RetrofitGithubUsersRepo
+import com.geekbrains.githubclient.data.db.Database
+import com.geekbrains.githubclient.data.net.ApiHolder
+import com.geekbrains.githubclient.data.net.RetrofitGithubUsersRepo
 import com.geekbrains.githubclient.databinding.FragmentUsersBinding
 import com.geekbrains.githubclient.domain.GlideImageLoader
 import com.geekbrains.githubclient.domain.users.UsersPresenter
 import com.geekbrains.githubclient.domain.users.UsersView
-import com.geekbrains.githubclient.ui.AndroidScreens
 import com.geekbrains.githubclient.ui.App
 import com.geekbrains.githubclient.ui.adapter.UsersAdapter
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
@@ -27,9 +27,9 @@ class UsersFragment : MvpAppCompatFragment(), UsersView, BackButtonListener {
     private val presenter: UsersPresenter by moxyPresenter {
         UsersPresenter(
             AndroidSchedulers.mainThread(),
-            RetrofitGithubUsersRepo(ApiHolder.api),
+            RetrofitGithubUsersRepo(ApiHolder.api, App.networkStatus, Database.getInstance()),
             App.instance.router,
-            AndroidScreens()
+            App.instance.screens
         )
     }
 

@@ -1,6 +1,7 @@
 package com.geekbrains.githubclient.domain.user
 
 import com.geekbrains.githubclient.data.GithubRepository
+import com.geekbrains.githubclient.data.GithubUser
 import com.geekbrains.githubclient.data.IGithubRepositoriesRepo
 import com.geekbrains.githubclient.domain.repository.IRepositoryItemView
 import com.geekbrains.githubclient.domain.repository.IRepositoryListPresenter
@@ -10,6 +11,7 @@ import io.reactivex.rxjava3.core.Scheduler
 import moxy.MvpPresenter
 
 class UserPresenter(
+    val user: GithubUser,
     val uiScheduler: Scheduler,
     val repositoriesRepo: IGithubRepositoriesRepo,
     val router: Router,
@@ -44,7 +46,7 @@ class UserPresenter(
     }
 
     fun loadData() {
-        repositoriesRepo.getRepositories()
+        repositoriesRepo.getRepositories(user)
             .observeOn(uiScheduler)
             .subscribe({ githubRepositories ->
                 repositoryListPresenter.repositories.apply {

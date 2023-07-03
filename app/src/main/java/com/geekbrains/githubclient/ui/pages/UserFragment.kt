@@ -5,13 +5,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.geekbrains.githubclient.data.ApiHolder
 import com.geekbrains.githubclient.data.GithubUser
-import com.geekbrains.githubclient.data.RetrofitGithubRepositoriesRepo
+import com.geekbrains.githubclient.data.db.Database
+import com.geekbrains.githubclient.data.net.ApiHolder
+import com.geekbrains.githubclient.data.net.RetrofitGithubRepositoriesRepo
 import com.geekbrains.githubclient.databinding.FragmentUserBinding
 import com.geekbrains.githubclient.domain.user.UserPresenter
 import com.geekbrains.githubclient.domain.user.UserView
-import com.geekbrains.githubclient.ui.AndroidScreens
 import com.geekbrains.githubclient.ui.App
 import com.geekbrains.githubclient.ui.adapter.RepositoryAdapter
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
@@ -33,14 +33,17 @@ class UserFragment() : MvpAppCompatFragment(), UserView {
     }
 
     private val presenter: UserPresenter by moxyPresenter {
-        val user = arguments?.getParcelable<GithubUser>(CURRENT_USER)
-        val reposUrl = user?.reposUrl ?: ""
+        val user = arguments?.getParcelable<GithubUser>(CURRENT_USER)!!
+        val reposUrl = user.reposUrl ?: ""
 
         UserPresenter(
+            user,
             AndroidSchedulers.mainThread(),
-            RetrofitGithubRepositoriesRepo(ApiHolder.api, reposUrl),
+            RetrofitGithubRepositoriesRepo(
+                ApiHolder.api, App.networkStatus, Database.getInstance()
+            ),
             App.instance.router,
-            AndroidScreens()
+            App.instance.screens
         )
     }
 
