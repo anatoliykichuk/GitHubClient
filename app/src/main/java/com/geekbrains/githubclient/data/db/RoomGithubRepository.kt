@@ -17,10 +17,6 @@ data class RoomGithubRepository(
     var id: String,
     var name: String,
     var description: String,
-    var url: String,
-    var private: Boolean,
-    var fork: Boolean,
-    var forksUrl: String,
     var forksCount: Int,
     var userId: String
 )

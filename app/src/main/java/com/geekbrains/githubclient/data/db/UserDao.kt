@@ -1,12 +1,13 @@
 package com.geekbrains.githubclient.data.db
 
+import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Update
-import com.geekbrains.githubclient.data.GithubUser
 
+@Dao
 interface UserDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insert(user: RoomGithubUser)
@@ -21,7 +22,7 @@ interface UserDao {
     fun update(user: RoomGithubUser)
 
     @Update
-    fun update(vararg users: GithubUser)
+    fun update(vararg users: RoomGithubUser)
 
     @Update
     fun update(users: List<RoomGithubUser>)

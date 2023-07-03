@@ -12,7 +12,6 @@ import com.geekbrains.githubclient.databinding.FragmentUsersBinding
 import com.geekbrains.githubclient.domain.GlideImageLoader
 import com.geekbrains.githubclient.domain.users.UsersPresenter
 import com.geekbrains.githubclient.domain.users.UsersView
-import com.geekbrains.githubclient.ui.AndroidScreens
 import com.geekbrains.githubclient.ui.App
 import com.geekbrains.githubclient.ui.adapter.UsersAdapter
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers

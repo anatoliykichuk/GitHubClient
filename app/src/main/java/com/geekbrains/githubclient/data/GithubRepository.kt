@@ -9,9 +9,5 @@ data class GithubRepository(
     @Expose val id: String? = null,
     @Expose val name: String? = null,
     @Expose val description: String? = null,
-    @Expose val url: String? = null,
-    @Expose val private: Boolean = false,
-    @Expose val fork: Boolean = false,
-    @Expose val forksUrl: String? = null,
     @Expose val forksCount: Int = 0
 ) : Parcelable

@@ -24,10 +24,6 @@ class RoomGithubRepositoriesCache(
                         repository.id ?: "",
                         repository.name ?: "",
                         repository.description ?: "",
-                        repository.url ?: "",
-                        repository.private ?: false,
-                        repository.fork ?: false,
-                        repository.forksUrl ?: "",
                         repository.forksCount ?: 0,
                         user.id ?: ""
                     )
@@ -50,10 +46,6 @@ class RoomGithubRepositoriesCache(
                 repository.id,
                 repository.name,
                 repository.description,
-                repository.url,
-                repository.private,
-                repository.fork,
-                repository.forksUrl,
                 repository.forksCount
             )
         }
