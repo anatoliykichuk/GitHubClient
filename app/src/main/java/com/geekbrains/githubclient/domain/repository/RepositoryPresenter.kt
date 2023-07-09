@@ -15,6 +15,10 @@ class RepositoryPresenter(
         super.onFirstViewAttach()
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+    }
+
     fun backPressed(): Boolean {
         router.exit()
         return true
