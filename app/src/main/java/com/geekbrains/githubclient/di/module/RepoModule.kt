@@ -1,0 +1,36 @@
+package com.geekbrains.githubclient.di.module
+
+import com.geekbrains.githubclient.data.IGithubRepositoriesCache
+import com.geekbrains.githubclient.data.IGithubRepositoriesRepo
+import com.geekbrains.githubclient.data.IGithubUsersCache
+import com.geekbrains.githubclient.data.IGithubUsersRepo
+import com.geekbrains.githubclient.data.db.INetworkStatus
+import com.geekbrains.githubclient.data.net.IDataSource
+import com.geekbrains.githubclient.data.net.RetrofitGithubRepositoriesRepo
+import com.geekbrains.githubclient.data.net.RetrofitGithubUsersRepo
+import com.geekbrains.githubclient.di.scope.RepositoryScope
+import com.geekbrains.githubclient.di.scope.scopecontainer.IRepositoryScopeContainer
+import com.geekbrains.githubclient.ui.App
+import dagger.Module
+import dagger.Provides
+import javax.inject.Singleton
+
+@Module
+class RepoModule {
+
+    @Singleton
+    @Provides
+    fun userRepo(
+        api: IDataSource, networkStatus: INetworkStatus, cache: IGithubUsersCache
+    ): IGithubUsersRepo = RetrofitGithubUsersRepo(api, networkStatus, cache)
+
+    @Singleton
+    @Provides
+    fun repositoryRepo(
+        api: IDataSource, networkStatus: INetworkStatus, cache: IGithubRepositoriesCache
+    ): IGithubRepositoriesRepo = RetrofitGithubRepositoriesRepo(api, networkStatus, cache)
+
+    @RepositoryScope
+    @Provides
+    open fun scopeContainer(app: App): IRepositoryScopeContainer = app
+}

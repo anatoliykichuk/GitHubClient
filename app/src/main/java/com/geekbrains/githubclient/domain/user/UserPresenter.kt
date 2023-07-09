@@ -9,14 +9,14 @@ import com.geekbrains.githubclient.ui.IScreens
 import com.github.terrakok.cicerone.Router
 import io.reactivex.rxjava3.core.Scheduler
 import moxy.MvpPresenter
+import javax.inject.Inject
 
-class UserPresenter(
-    val user: GithubUser,
-    val uiScheduler: Scheduler,
-    val repositoriesRepo: IGithubRepositoriesRepo,
-    val router: Router,
-    val screens: IScreens
-) : MvpPresenter<UserView>() {
+class UserPresenter(val user: GithubUser) : MvpPresenter<UserView>() {
+
+    @Inject lateinit var uiScheduler: Scheduler
+    @Inject lateinit var repositoriesRepo: IGithubRepositoriesRepo
+    @Inject lateinit var router: Router
+    @Inject lateinit var screens: IScreens
 
     class RepositoryListPresenter : IRepositoryListPresenter {
         val repositories = mutableListOf<GithubRepository>()

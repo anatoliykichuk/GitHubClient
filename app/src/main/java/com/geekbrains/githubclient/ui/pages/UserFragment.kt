@@ -6,19 +6,15 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.geekbrains.githubclient.data.GithubUser
-import com.geekbrains.githubclient.data.db.Database
-import com.geekbrains.githubclient.data.net.ApiHolder
-import com.geekbrains.githubclient.data.net.RetrofitGithubRepositoriesRepo
 import com.geekbrains.githubclient.databinding.FragmentUserBinding
 import com.geekbrains.githubclient.domain.user.UserPresenter
 import com.geekbrains.githubclient.domain.user.UserView
 import com.geekbrains.githubclient.ui.App
 import com.geekbrains.githubclient.ui.adapter.RepositoryAdapter
-import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import moxy.MvpAppCompatFragment
 import moxy.ktx.moxyPresenter
 
-class UserFragment() : MvpAppCompatFragment(), UserView {
+class UserFragment : MvpAppCompatFragment(), UserView {
 
     companion object {
         private const val CURRENT_USER = "current_user"
@@ -34,17 +30,10 @@ class UserFragment() : MvpAppCompatFragment(), UserView {
 
     private val presenter: UserPresenter by moxyPresenter {
         val user = arguments?.getParcelable<GithubUser>(CURRENT_USER)!!
-        val reposUrl = user.reposUrl ?: ""
 
-        UserPresenter(
-            user,
-            AndroidSchedulers.mainThread(),
-            RetrofitGithubRepositoriesRepo(
-                ApiHolder.api, App.networkStatus, Database.getInstance()
-            ),
-            App.instance.router,
-            App.instance.screens
-        )
+        UserPresenter(user).apply {
+            App.instance.initRepositorySubcomponent()?.inject(this)
+        }
     }
 
     private var adapter: RepositoryAdapter? = null

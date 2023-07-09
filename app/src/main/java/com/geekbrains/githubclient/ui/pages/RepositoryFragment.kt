@@ -4,11 +4,15 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import com.geekbrains.githubclient.data.GithubRepository
 import com.geekbrains.githubclient.databinding.FragmentRepositoryBinding
+import com.geekbrains.githubclient.domain.repository.RepositoryPresenter
+import com.geekbrains.githubclient.domain.repository.RepositoryView
+import com.geekbrains.githubclient.ui.App
+import moxy.MvpAppCompatFragment
+import moxy.ktx.moxyPresenter
 
-class RepositoryFragment : Fragment() {
+class RepositoryFragment : MvpAppCompatFragment(), RepositoryView {
 
     companion object {
         private const val CURRENT_REPOSITORY = "current_repository"
@@ -19,6 +23,14 @@ class RepositoryFragment : Fragment() {
                     putParcelable(CURRENT_REPOSITORY, repository)
                 }
             }
+        }
+    }
+
+    private val presenter: RepositoryPresenter by moxyPresenter {
+        val repository = arguments?.getParcelable<GithubRepository>(CURRENT_REPOSITORY)!!
+
+        RepositoryPresenter(repository).apply {
+            App.instance.repositorySubcomponent?.inject(this)
         }
     }
 

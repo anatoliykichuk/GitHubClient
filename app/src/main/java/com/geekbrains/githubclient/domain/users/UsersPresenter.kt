@@ -7,13 +7,16 @@ import com.geekbrains.githubclient.ui.IScreens
 import com.github.terrakok.cicerone.Router
 import io.reactivex.rxjava3.core.Scheduler
 import moxy.MvpPresenter
+import javax.inject.Inject
 
-class UsersPresenter(
-    val uiScheduler: Scheduler,
-    val usersRepo: IGithubUsersRepo,
-    val router: Router,
-    val screens: IScreens
-) : MvpPresenter<UsersView>() {
+class UsersPresenter: MvpPresenter<UsersView>() {
+
+    @Inject lateinit var uiScheduler: Scheduler
+    @Inject lateinit var router: Router
+    @Inject lateinit var screens: IScreens
+    @Inject lateinit var usersRepo: IGithubUsersRepo
+
+    //RetrofitGithubUsersRepo(ApiHolder.api, App.networkStatus, Database.getInstance())
 
     class UserListPresenter : IUserListPresenter {
         val users = mutableListOf<GithubUser>()
