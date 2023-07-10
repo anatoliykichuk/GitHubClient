@@ -56,7 +56,7 @@ dependencies {
     implementation "com.github.moxy-community:moxy-ktx:$moxyVersion"
     implementation "com.github.moxy-community:moxy-androidx:$moxyVersion"
 
-    implementation "com.github.terrakok:cicerone:6.6"
+    implementation "com.github.terrakok:cicerone:7.1"
 
     def rxsJavaVersion = "3.0.0"
     implementation "io.reactivex.rxjava3:rxandroid:$rxsJavaVersion"
