@@ -1,36 +1,52 @@
 package com.geekbrains.githubclient.ui
 
 import android.app.Application
-import com.geekbrains.githubclient.data.db.AndroidNetworkStatus
-import com.geekbrains.githubclient.data.db.Database
-import com.geekbrains.githubclient.data.db.INetworkStatus
-import com.github.terrakok.cicerone.Cicerone
-import com.github.terrakok.cicerone.Router
+import com.geekbrains.githubclient.di.component.AppComponent
+import com.geekbrains.githubclient.di.component.DaggerAppComponent
+import com.geekbrains.githubclient.di.component.subcomponent.RepositorySubcomponent
+import com.geekbrains.githubclient.di.component.subcomponent.UserSubcomponent
+import com.geekbrains.githubclient.di.module.AppModule
+import com.geekbrains.githubclient.di.scope.scopecontainer.IRepositoryScopeContainer
+import com.geekbrains.githubclient.di.scope.scopecontainer.IUserScopeContainer
 
-class App : Application() {
+class App : Application(), IUserScopeContainer, IRepositoryScopeContainer {
+
     companion object {
         lateinit var instance: App
-        lateinit var networkStatus: INetworkStatus
     }
 
-    private val cicerone: Cicerone<Router> by lazy {
-        Cicerone.create()
-    }
+    lateinit var appComponent: AppComponent
+        private set
 
-    val navigatorHolder
-        get() = cicerone.getNavigatorHolder()
+    var userSubcomponent: UserSubcomponent? = null
+        private set
 
-    val router
-        get() = cicerone.router
-
-    val screens: IScreens = AndroidScreens()
+    var repositorySubcomponent: RepositorySubcomponent? = null
+        private set
 
     override fun onCreate() {
         super.onCreate()
 
         instance = this
-        networkStatus = AndroidNetworkStatus(instance)
 
-        Database.create(this)
+        appComponent = DaggerAppComponent.builder()
+            .appModule(AppModule(this))
+            .build()
+    }
+
+    fun initUserSubcomponent() = appComponent.userSubcomponent().also {
+        userSubcomponent = it
+    }
+
+    fun initRepositorySubcomponent() = userSubcomponent?.repositorySubcomponent().also {
+        repositorySubcomponent = it
+    }
+
+    override fun releaseRepositoryScope() {
+        repositorySubcomponent = null
+    }
+
+    override fun releaseUserScope() {
+        userSubcomponent = null
     }
 }

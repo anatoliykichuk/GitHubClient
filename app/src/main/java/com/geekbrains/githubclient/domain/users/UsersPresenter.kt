@@ -2,18 +2,21 @@ package com.geekbrains.githubclient.domain.users
 
 import com.geekbrains.githubclient.data.GithubUser
 import com.geekbrains.githubclient.data.IGithubUsersRepo
+import com.geekbrains.githubclient.di.scope.scopecontainer.IUserScopeContainer
 import com.geekbrains.githubclient.domain.IUserItemView
 import com.geekbrains.githubclient.ui.IScreens
 import com.github.terrakok.cicerone.Router
 import io.reactivex.rxjava3.core.Scheduler
 import moxy.MvpPresenter
+import javax.inject.Inject
 
-class UsersPresenter(
-    val uiScheduler: Scheduler,
-    val usersRepo: IGithubUsersRepo,
-    val router: Router,
-    val screens: IScreens
-) : MvpPresenter<UsersView>() {
+class UsersPresenter: MvpPresenter<UsersView>() {
+
+    @Inject lateinit var uiScheduler: Scheduler
+    @Inject lateinit var usersRepo: IGithubUsersRepo
+    @Inject lateinit var router: Router
+    @Inject lateinit var screens: IScreens
+    @Inject lateinit var userScopeContainer: IUserScopeContainer
 
     class UserListPresenter : IUserListPresenter {
         val users = mutableListOf<GithubUser>()
@@ -42,6 +45,11 @@ class UsersPresenter(
 
             router.navigateTo(screens.user(user))
         }
+    }
+
+    override fun onDestroy() {
+        userScopeContainer.releaseUserScope()
+        super.onDestroy()
     }
 
     fun loadData() {

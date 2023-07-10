@@ -8,11 +8,13 @@ import com.geekbrains.githubclient.databinding.UserItemBinding
 import com.geekbrains.githubclient.domain.IUserItemView
 import com.geekbrains.githubclient.domain.common.IImageLoader
 import com.geekbrains.githubclient.domain.users.IUserListPresenter
+import javax.inject.Inject
 
 class UsersAdapter(
-    val presenter: IUserListPresenter,
-    val imageLoader: IImageLoader<ImageView>
+    val presenter: IUserListPresenter
 ) : RecyclerView.Adapter<UsersAdapter.ViewHolder>() {
+
+    @Inject lateinit var imageLoader : IImageLoader<ImageView>
 
     inner class ViewHolder(
         val binding: UserItemBinding

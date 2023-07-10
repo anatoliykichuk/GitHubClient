@@ -2,7 +2,6 @@ package com.geekbrains.githubclient.data.net
 
 import com.geekbrains.githubclient.data.GithubRepository
 import com.geekbrains.githubclient.data.GithubUser
-import com.geekbrains.githubclient.data.User
 import io.reactivex.rxjava3.core.Single
 import retrofit2.http.GET
 import retrofit2.http.Path
@@ -15,7 +14,7 @@ interface IDataSource {
     fun getUsers(): Single<List<GithubUser>>
 
     @GET("users/{login}")
-    fun loadUser(@Path("login") login: String): Single<User>
+    fun loadUser(@Path("login") login: String): Single<GithubUser>
 
     @GET
     fun getRepositories(@Url url: String): Single<List<GithubRepository>>

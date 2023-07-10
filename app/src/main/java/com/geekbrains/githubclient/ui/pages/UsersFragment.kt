@@ -6,17 +6,15 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.geekbrains.githubclient.data.db.Database
-import com.geekbrains.githubclient.data.net.ApiHolder
-import com.geekbrains.githubclient.data.net.RetrofitGithubUsersRepo
 import com.geekbrains.githubclient.databinding.FragmentUsersBinding
-import com.geekbrains.githubclient.domain.GlideImageLoader
+import com.geekbrains.githubclient.di.component.subcomponent.UserSubcomponent
 import com.geekbrains.githubclient.domain.users.UsersPresenter
 import com.geekbrains.githubclient.domain.users.UsersView
 import com.geekbrains.githubclient.ui.App
 import com.geekbrains.githubclient.ui.adapter.UsersAdapter
-import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import moxy.MvpAppCompatFragment
 import moxy.ktx.moxyPresenter
+import javax.inject.Inject
 
 class UsersFragment : MvpAppCompatFragment(), UsersView, BackButtonListener {
 
@@ -24,15 +22,16 @@ class UsersFragment : MvpAppCompatFragment(), UsersView, BackButtonListener {
         fun newInstance() = UsersFragment()
     }
 
+    @Inject lateinit var database: Database
+
     private val presenter: UsersPresenter by moxyPresenter {
-        UsersPresenter(
-            AndroidSchedulers.mainThread(),
-            RetrofitGithubUsersRepo(ApiHolder.api, App.networkStatus, Database.getInstance()),
-            App.instance.router,
-            App.instance.screens
-        )
+        UsersPresenter().apply {
+            userSubcomponent = App.instance.initUserSubcomponent()
+            userSubcomponent?.inject(this)
+        }
     }
 
+    var userSubcomponent: UserSubcomponent? = null
     private var adapter: UsersAdapter? = null
 
     private var _binding: FragmentUsersBinding? = null
@@ -55,7 +54,9 @@ class UsersFragment : MvpAppCompatFragment(), UsersView, BackButtonListener {
     }
 
     override fun init() {
-        adapter = UsersAdapter(presenter.userListPresenter, GlideImageLoader())
+        adapter = UsersAdapter(presenter.userListPresenter).apply {
+            userSubcomponent?.inject(this)
+        }
 
         binding.users.layoutManager = LinearLayoutManager(context)
         binding.users.adapter = adapter

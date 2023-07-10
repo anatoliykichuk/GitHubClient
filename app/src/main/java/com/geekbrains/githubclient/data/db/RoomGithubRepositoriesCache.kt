@@ -2,16 +2,15 @@ package com.geekbrains.githubclient.data.db
 
 import com.geekbrains.githubclient.data.GithubRepository
 import com.geekbrains.githubclient.data.GithubUser
+import com.geekbrains.githubclient.data.IGithubRepositoriesCache
 import com.geekbrains.githubclient.data.net.IDataSource
 import io.reactivex.rxjava3.core.Single
 
-class RoomGithubRepositoriesCache(
-    val api: IDataSource,
-    val db: Database,
-    val user: GithubUser
-) {
+class RoomGithubRepositoriesCache(val db: Database) : IGithubRepositoriesCache {
 
-    fun putRepositories() = user.reposUrl?.let { url ->
+    override fun putRepositories(
+        api: IDataSource, user: GithubUser
+    ) = user.reposUrl?.let { url ->
 
         api.getRepositories(url).flatMap { repositories ->
             Single.fromCallable {
@@ -35,7 +34,7 @@ class RoomGithubRepositoriesCache(
         }
     } ?: Single.error<List<GithubRepository>>(RuntimeException("User has no repos url"))
 
-    fun getRepositories() = Single.fromCallable {
+    override fun getRepositories(user: GithubUser) = Single.fromCallable {
 
         val roomUser = user.login?.let { login ->
             db.userDao.findByLogin(login)
