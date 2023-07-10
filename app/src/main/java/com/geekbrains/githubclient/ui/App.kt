@@ -1,8 +1,8 @@
 package com.geekbrains.githubclient.ui
 
 import android.app.Application
-import com.geekbrains.githubclient.di.DaggerAppComponent
 import com.geekbrains.githubclient.di.component.AppComponent
+import com.geekbrains.githubclient.di.component.DaggerAppComponent
 import com.geekbrains.githubclient.di.component.subcomponent.RepositorySubcomponent
 import com.geekbrains.githubclient.di.component.subcomponent.UserSubcomponent
 import com.geekbrains.githubclient.di.module.AppModule
