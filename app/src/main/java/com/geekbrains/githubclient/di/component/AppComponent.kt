@@ -3,8 +3,8 @@ package com.geekbrains.githubclient.di.component
 import com.geekbrains.githubclient.di.component.subcomponent.UserSubcomponent
 import com.geekbrains.githubclient.di.module.ApiModule
 import com.geekbrains.githubclient.di.module.AppModule
-import com.geekbrains.githubclient.di.module.CacheModule
 import com.geekbrains.githubclient.di.module.CiceroneModule
+import com.geekbrains.githubclient.di.module.DatabaseModule
 import com.geekbrains.githubclient.di.module.ImageModule
 import com.geekbrains.githubclient.domain.main.MainPresenter
 import com.geekbrains.githubclient.ui.MainActivity
@@ -17,7 +17,7 @@ import javax.inject.Singleton
         AppModule::class,
         ApiModule::class,
         CiceroneModule::class,
-        CacheModule::class,
+        DatabaseModule::class,
         ImageModule::class
     ]
 )
